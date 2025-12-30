@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+:root{
+  --container-width: 1000px;
+  --accent: #0077cc;
+}
