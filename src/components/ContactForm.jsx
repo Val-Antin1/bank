@@ -16,7 +16,7 @@ export default function ContactForm() {
 
     try {
       console.log('Sending form data:', form)
-      const response = await fetch('https://banks-backend-2.onrender.com/send-email', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -28,7 +28,7 @@ const ChatWidget = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://banks-backend-2.onrender.com/chat', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
