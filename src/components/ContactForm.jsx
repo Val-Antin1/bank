@@ -17,6 +17,16 @@ export default function ContactForm() {
 
     try {
       console.log('Sending contact form data:', form)
+      console.log('EmailJS Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID)
+      console.log('EmailJS Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID)
+      console.log('EmailJS Public Key:', import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
+
+      // Check if environment variables are set
+      if (!import.meta.env.VITE_EMAILJS_SERVICE_ID ||
+          !import.meta.env.VITE_EMAILJS_TEMPLATE_ID ||
+          !import.meta.env.VITE_EMAILJS_PUBLIC_KEY) {
+        throw new Error('EmailJS configuration missing. Please check environment variables.')
+      }
 
       const result = await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
