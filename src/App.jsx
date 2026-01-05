@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppWidget from './components/WhatsAppWidget'
-import ChatWidget from './components/ChatWidget'
 import Home from './pages/Home'
 import Products from './pages/Products'
 import About from './pages/About'
@@ -23,7 +22,6 @@ function App() {
       </main>
       <Footer />
       <WhatsAppWidget />
-      <ChatWidget />
     </div>
   )
 }
