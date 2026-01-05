@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
 
@@ -15,23 +16,28 @@ export default function ContactForm() {
     setStatus('')
 
     try {
-      console.log('Sending form data:', form)
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/send-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      })
-      console.log('Response status:', response.status)
-      const data = await response.json()
-      console.log('Response data:', data)
+      console.log('Sending contact form data:', form)
 
-      if (response.ok) {
+      const result = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone,
+          message: form.message,
+          to_email: 'valentinlyon205@gmail.com', // Replace with your email
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+
+      console.log('EmailJS result:', result)
+
+      if (result.text === 'OK') {
         setStatus('Message sent successfully!')
-        setForm({ name: '', email: '', message: '' })
+        setForm({ name: '', email: '', phone: '', message: '' })
       } else {
-        setStatus(data.error || 'Failed to send message. Please try again.')
+        setStatus('Failed to send message. Please try again.')
       }
     } catch (error) {
       console.error('Error sending message:', error)
@@ -51,6 +57,11 @@ export default function ContactForm() {
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
         <input name="email" type="email" value={form.email} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+        <input name="phone" type="tel" value={form.phone} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
       </div>
 
       <div>
