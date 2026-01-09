@@ -4,6 +4,8 @@ export default function AdminAnalytics() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002';
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -11,7 +13,7 @@ export default function AdminAnalytics() {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:3002/api/products', {
+      const response = await fetch(`${API_BASE_URL}/api/products`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -477,7 +479,7 @@ export default function AdminAnalytics() {
                       <div className="flex items-center">
                         {product.image && (
                           <img
-                            src={`http://localhost:3002${product.image}`}
+                            src={`${API_BASE_URL}${product.image}`}
                             alt={product.name}
                             className="w-10 h-10 rounded-lg mr-3 object-cover"
                           />

@@ -5,6 +5,8 @@ export default function Products() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002';
+
   // No static products - only admin-uploaded products will be shown
 
   useEffect(() => {
@@ -14,7 +16,7 @@ export default function Products() {
   const fetchProducts = async () => {
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:3002/api/products')
+      const response = await fetch(`${API_BASE_URL}/api/products`)
       if (response.ok) {
         const data = await response.json()
         // Only admin-uploaded products
@@ -22,7 +24,7 @@ export default function Products() {
           id: product._id,
           name: product.name,
           price: product.price || 0,
-          image: `http://localhost:3002${product.image}`,
+          image: `${API_BASE_URL}${product.image}`,
           category: product.category || "General",
           description: product.description,
           mainFeature: product.description,

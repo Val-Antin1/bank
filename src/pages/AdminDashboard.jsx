@@ -19,6 +19,8 @@ export default function AdminDashboard() {
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const navigate = useNavigate();
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002';
+
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
@@ -31,7 +33,7 @@ export default function AdminDashboard() {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:3002/api/products', {
+      const response = await fetch(`${API_BASE_URL}/api/products`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -66,7 +68,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:3002/api/products', {
+      const response = await fetch(`${API_BASE_URL}/api/products`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -139,7 +141,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:3002/api/products/${editingProduct._id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/products/${editingProduct._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -170,7 +172,7 @@ export default function AdminDashboard() {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:3002/api/products/${productId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -571,7 +573,7 @@ export default function AdminDashboard() {
                         <div className="flex items-start space-x-4">
                           {product.image && (
                             <img
-                              src={`http://localhost:3002${product.image}`}
+                              src={`${API_BASE_URL}${product.image}`}
                               alt={product.name}
                               className="w-16 h-16 object-cover rounded-lg border border-gray-200"
                             />
