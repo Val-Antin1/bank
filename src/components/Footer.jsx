@@ -58,6 +58,12 @@ export default function Footer() {
                 Contact
               </a>
             </li>
+            <li>
+              <a href="/admin-login" className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-300 flex items-center gap-2 group">
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-blue-600 transition-colors"></span>
+                Admin Login
+              </a>
+            </li>
           </ul>
         </div>
 
