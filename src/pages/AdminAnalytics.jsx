@@ -166,13 +166,13 @@ export default function AdminAnalytics() {
       {/* Main Content */}
       <div className="flex-1 lg:ml-64">
         {/* Header */}
-        <div className="bg-white shadow-sm border-b px-6 py-4">
-          <div className="flex items-center justify-between">
+        <div className="bg-white shadow-sm border-b px-4 sm:px-6 py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
-              <p className="text-gray-600">Product performance and insights</p>
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
+              <p className="text-gray-600 text-sm sm:text-base">Product performance and insights</p>
             </div>
-            <div className="text-right">
+            <div className="text-center sm:text-right">
               <p className="text-2xl font-bold text-blue-600">{products.length}</p>
               <p className="text-sm text-gray-600">Total Products</p>
             </div>
@@ -457,12 +457,14 @@ export default function AdminAnalytics() {
           </div>
         </div>
 
-        {/* Recent Products Table */}
+        {/* Recent Products */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="px-6 py-4 border-b border-gray-200">
+          <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-900">Recent Products</h3>
           </div>
-          <div className="overflow-x-auto">
+
+          {/* Desktop Table */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
@@ -506,12 +508,43 @@ export default function AdminAnalytics() {
               </tbody>
             </table>
           </div>
+
+          {/* Mobile Cards */}
+          <div className="md:hidden space-y-4 p-4">
+            {products.slice(0, 5).map((product) => (
+              <div key={product._id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
+                <div className="flex items-start space-x-4">
+                  {product.image && (
+                    <img
+                      src={`${API_BASE_URL}${product.image}`}
+                      alt={product.name}
+                      className="w-12 h-12 rounded-lg object-cover flex-shrink-0"
+                    />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-semibold text-gray-900 truncate">{product.name}</h4>
+                    <p className="text-xs text-gray-500 mt-1 line-clamp-2">{product.description}</p>
+                    <div className="flex items-center justify-between mt-3">
+                      <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                        {product.category || 'General'}
+                      </span>
+                      <div className="text-right">
+                        <p className="text-sm font-semibold text-gray-900">{(product.price || 0).toLocaleString()} RWF</p>
+                        <p className="text-xs text-gray-500">{new Date(product.createdAt).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
           {products.length === 0 && (
-            <div className="text-center py-12">
-              <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center py-8 sm:py-12">
+              <svg className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
               </svg>
-              <p className="text-gray-500 text-lg mb-2">No products yet</p>
+              <p className="text-gray-500 text-base sm:text-lg mb-2">No products yet</p>
               <p className="text-gray-400 text-sm">Start uploading products to see analytics</p>
             </div>
           )}
