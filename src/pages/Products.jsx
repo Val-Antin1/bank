@@ -41,7 +41,8 @@ export default function Products() {
 
   useEffect(() => {
     fetchProducts()
-  }, [fetchProducts])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [searchQuery, setSearchQuery] = useState("")
