@@ -1,20 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
 export default function Products() {
   const [allProducts, setAllProducts] = useState([])
-  const [loading, setLoading] = useState(true)
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002';
 
-  // No static products - only admin-uploaded products will be shown
-
-  useEffect(() => {
-    fetchProducts()
-  }, [])
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
-      setLoading(true)
       const response = await fetch(`${API_BASE_URL}/api/products`)
       if (response.ok) {
         const data = await response.json()
@@ -42,10 +34,14 @@ export default function Products() {
     } catch (err) {
       console.error('Error fetching products:', err)
       setAllProducts([])
-    } finally {
-      setLoading(false)
     }
-  }
+  }, [API_BASE_URL])
+
+  // No static products - only admin-uploaded products will be shown
+
+  useEffect(() => {
+    fetchProducts()
+  }, [fetchProducts])
 
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [searchQuery, setSearchQuery] = useState("")
