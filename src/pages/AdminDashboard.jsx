@@ -573,7 +573,7 @@ export default function AdminDashboard() {
                         <div className="flex flex-col sm:flex-row sm:items-start space-y-3 sm:space-y-0 sm:space-x-4">
                           {product.image && (
                             <img
-                              src={`${API_BASE_URL}${product.image}`}
+                              src={product.image.startsWith('http') ? product.image : `${API_BASE_URL}${product.image}`}
                               alt={product.name}
                               className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg border border-gray-200 mx-auto sm:mx-0"
                             />

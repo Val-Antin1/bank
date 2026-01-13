@@ -24,7 +24,7 @@ export default function Products() {
           id: product._id,
           name: product.name,
           price: product.price || 0,
-          image: `${API_BASE_URL}${product.image}`,
+          image: product.image.startsWith('http') ? product.image : `${API_BASE_URL}${product.image}`,
           category: product.category || "General",
           description: product.description,
           mainFeature: product.description,
