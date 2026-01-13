@@ -3,7 +3,6 @@ import { useState, useEffect } from "react"
 export default function Products() {
   const [allProducts, setAllProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002';
 
