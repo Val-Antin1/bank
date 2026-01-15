@@ -203,8 +203,8 @@ export default function AdminLogin() {
                 <div>
                   <h3 className="text-blue-800 font-medium text-sm mb-1">Demo Credentials</h3>
                   <p className="text-blue-700 text-xs">
-                    Email: valentinlyon205@gmail.com<br/>
-                    Password: mamannkunda
+                    Email: kingbanks133@gmail.com<br/>
+                    Password: mama_shema
                   </p>
                 </div>
               </div>

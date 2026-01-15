@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import emailjs from '@emailjs/browser'
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002'
 
   function handleChange(e) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -17,41 +18,28 @@ export default function ContactForm() {
 
     try {
       console.log('Sending contact form data:', form)
-      console.log('EmailJS Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID)
-      console.log('EmailJS Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID)
-      console.log('EmailJS Public Key:', import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
 
-      // Check if environment variables are set
-      if (!import.meta.env.VITE_EMAILJS_SERVICE_ID ||
-          !import.meta.env.VITE_EMAILJS_TEMPLATE_ID ||
-          !import.meta.env.VITE_EMAILJS_PUBLIC_KEY) {
-        throw new Error('EmailJS configuration missing. Please check environment variables.')
-      }
-
-      const result = await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: form.name,
-          from_email: form.email,
-          phone: form.phone,
-          message: form.message,
-          to_email: 'valentinlyon205@gmail.com', // Replace with your email
+      const response = await fetch(`${API_BASE_URL}/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
+        body: JSON.stringify(form),
+      })
 
-      console.log('EmailJS result:', result)
+      console.log('Response status:', response.status)
 
-      if (result.text === 'OK') {
+      if (response.ok) {
+        const data = await response.json()
+        console.log('Email sent successfully:', data)
         setStatus('Message sent successfully!')
         setForm({ name: '', email: '', phone: '', message: '' })
       } else {
-        setStatus('Failed to send message. Please try again.')
+        throw new Error(`Failed to send email: ${response.status}`)
       }
     } catch (error) {
       console.error('Error sending message:', error)
-      setStatus('Failed to send message. Please try again.')
+      setStatus('Failed to send message via email. Please try contacting us via WhatsApp instead.')
     } finally {
       setLoading(false)
     }
