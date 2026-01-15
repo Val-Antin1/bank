@@ -11,7 +11,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.emailjs.com;"
+          "value": "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.emailjs.com https://*.vercel.live;"
         }
       ]
     }
