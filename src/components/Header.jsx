@@ -28,7 +28,7 @@ export default function Header() {
         <Link to="/" className="flex items-center gap-2 group">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
-            <img src="/logo.png" alt="BANKS Logo" className="relative w-10 h-10 object-contain" />
+            <img src="/logo.png" alt="BANKS Logo" className="relative w-12 h-12 object-contain" />
           </div>
           <div>
             <span className="text-2xl font-extrabold text-blue-600 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent group-hover:from-blue-300 group-hover:to-blue-500 transition-all duration-300">
