@@ -40,8 +40,8 @@ const PaymentReminder = () => {
         <div className="space-y-4">
           <p className="text-lg text-gray-700">
             <strong>Contact Information:</strong><br />
-            Email: valentinlyon205@gmail.com<br />
-            Phone: 0798738972
+            Email: Irakozeg72@gmail.com<br />
+            Phone: 0798219791
           </p>
           <p className="text-gray-600">
             Once payment is received, your website will be fully restored to its normal functionality.
